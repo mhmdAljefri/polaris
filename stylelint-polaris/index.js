@@ -14,7 +14,17 @@ module.exports = {
     'stylelint-polaris/coverage': {
       colors: {
         'color-named': 'never',
-        'color-no-hex': true,
+        'color-no-hex': [
+          true,
+          {
+            // TODO: Add custom meta support in coverage.js
+            meta: {
+              url: 'https://polaris.shopify.com/tokens/color',
+            },
+            message: (hex) =>
+              `Unexpected use of hex code: value "${hex}" should be replaced with a Polaris color token.`,
+          },
+        ],
         'scss/function-color-relative': true,
         'declaration-property-value-disallowed-list': {
           opacity: [/(?!0|1)\d$|^\d{2,}|^[1-9]+\.|^\d+\.\d+\.|^0\.\d{3,}/],
