@@ -2,17 +2,21 @@ import React, {Component, createRef, useContext} from 'react';
 import {HorizontalDotsMinor} from '@shopify/polaris-icons';
 import isEqual from 'react-fast-compare';
 
-import {classNames, variationName} from '../../utilities/css';
+import {classNames} from '../../utilities/css';
 import {useI18n} from '../../utilities/i18n';
 import type {DisableableAction} from '../../types';
 import {ActionList} from '../ActionList';
-import {Popover} from '../Popover';
-import type {AvatarProps} from '../Avatar';
-import {UnstyledLink} from '../UnstyledLink';
-import type {ThumbnailProps} from '../Thumbnail';
+import {Box} from '../Box';
+import {Button, buttonsFrom} from '../Button';
 import {ButtonGroup} from '../ButtonGroup';
 import {Checkbox} from '../Checkbox';
-import {Button, buttonsFrom} from '../Button';
+import {Columns} from '../Columns';
+import {Inline} from '../Inline';
+import {Popover} from '../Popover';
+import {UnstyledLink} from '../UnstyledLink';
+import type {AvatarProps} from '../Avatar';
+import type {InlineProps} from '../Inline';
+import type {ThumbnailProps} from '../Thumbnail';
 import {
   ResourceListContext,
   SELECT_ALL_ITEMS,
@@ -167,8 +171,8 @@ class BaseResourceItem extends Component<CombinedProps, State> {
         name || accessibilityLabel || i18n.translate('Polaris.Common.checkbox');
 
       handleMarkup = (
-        <div className={styles.Handle} onClick={this.handleLargerSelectionArea}>
-          <div onClick={stopPropagation} className={styles.CheckboxWrapper}>
+        <div onClick={this.handleLargerSelectionArea}>
+          <div onClick={stopPropagation}>
             <div onChange={this.handleLargerSelectionArea}>
               <Checkbox
                 id={this.checkboxId}
@@ -185,15 +189,12 @@ class BaseResourceItem extends Component<CombinedProps, State> {
 
     if (media || selectable) {
       ownedMarkup = (
-        <div
-          className={classNames(
-            styles.Owned,
-            !mediaMarkup && styles.OwnedNoMedia,
-          )}
-        >
-          {handleMarkup}
-          {mediaMarkup}
-        </div>
+        <Inline>
+          <Box paddingBlockStart={!media ? '1' : undefined}>
+            {handleMarkup}
+            {mediaMarkup}
+          </Box>
+        </Inline>
       );
     }
 
@@ -264,23 +265,24 @@ class BaseResourceItem extends Component<CombinedProps, State> {
       }
     }
 
-    const content = children ? (
-      <div className={styles.Content}>{children}</div>
-    ) : null;
-
-    const containerClassName = classNames(
-      styles.Container,
-      verticalAlignment &&
-        styles[variationName('alignment', verticalAlignment)],
-    );
-
     const containerMarkup = (
-      <div className={containerClassName} id={this.props.id}>
-        {ownedMarkup}
-        {content}
-        {actionsMarkup}
-        {disclosureMarkup}
-      </div>
+      <Box
+        id={this.props.id}
+        position="relative"
+        paddingBlockStart="3"
+        paddingBlockEnd="3"
+        paddingInlineStart="4"
+        paddingInlineEnd="4"
+      >
+        <Columns columns={{xs: 'auto 1fr auto auto'}}>
+          <Inline blockAlign={getAlignment(verticalAlignment)}>
+            {ownedMarkup}
+          </Inline>
+          <Box>{children}</Box>
+          <Inline>{actionsMarkup}</Inline>
+          <Inline>{disclosureMarkup}</Inline>
+        </Columns>
+      </Box>
     );
 
     const tabIndex = loading ? -1 : 0;
@@ -466,4 +468,21 @@ export function ResourceItem(props: ResourceItemProps) {
       i18n={useI18n()}
     />
   );
+}
+
+function getAlignment(alignment?: Alignment): InlineProps['blockAlign'] {
+  switch (alignment) {
+    case 'leading':
+      return 'start';
+    case 'trailing':
+      return 'end';
+    case 'center':
+      return 'center';
+    case 'fill':
+      return 'stretch';
+    case 'baseline':
+      return 'baseline';
+    default:
+      return undefined;
+  }
 }

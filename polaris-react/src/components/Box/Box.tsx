@@ -15,7 +15,8 @@ import {classNames, sanitizeCustomProperties} from '../../utilities/css';
 import styles from './Box.scss';
 
 type Element = 'div' | 'span' | 'section';
-
+type Position = 'relative' | 'absolute' | 'fixed' | 'static' | 'sticky';
+type Placement = 'top' | 'right' | 'bottom' | 'left';
 type Overflow = 'hidden' | 'scroll';
 
 export type ColorTokenScale =
@@ -148,10 +149,15 @@ export interface BoxProps {
   paddingInlineStart?: SpacingSpaceScale;
   /** Horizontal end spacing around children */
   paddingInlineEnd?: SpacingSpaceScale;
+  /** Placement of the container */
+  placement?: Placement;
+  /** Positioning of the container */
+  position?: Position;
   /** Shadow */
   shadow?: DepthShadowAlias;
   /** Set width of container */
   width?: string;
+  zIndex?: string | number;
   /** Elements to display inside box */
   children?: React.ReactNode;
 }
@@ -189,8 +195,11 @@ export const Box = forwardRef<HTMLElement, BoxProps>(
       paddingBlockEnd,
       paddingInlineStart,
       paddingInlineEnd,
+      placement,
+      position,
       shadow,
       width,
+      zIndex,
     },
     ref,
   ) => {
@@ -286,8 +295,11 @@ export const Box = forwardRef<HTMLElement, BoxProps>(
       '--pc-box-padding-block-start': paddings.blockStart
         ? `var(--p-space-${paddings.blockStart})`
         : undefined,
+      '--pc-box-placement': placement,
+      '--pc-box-position': position,
       '--pc-box-shadow': shadow ? `var(--p-shadow-${shadow})` : undefined,
       '--pc-box-width': width,
+      '--pc-box-z-index': zIndex,
     } as React.CSSProperties;
 
     const className = classNames(styles.Box);

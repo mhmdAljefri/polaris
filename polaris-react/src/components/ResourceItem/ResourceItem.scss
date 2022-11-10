@@ -12,10 +12,6 @@
   height: 100%;
 }
 
-.CheckboxWrapper {
-  display: flex;
-}
-
 .ResourceItem {
   --pc-resource-item-min-height: 44px;
   --pc-resource-item-disclosure-width: 48px;
@@ -83,56 +79,60 @@
 }
 
 // Item inner container
-.Container {
-  position: relative;
-  z-index: var(--pc-resource-item-content-stacking-order);
-  padding: var(--p-space-3) var(--p-space-4);
-  min-height: var(--pc-resource-item-min-height);
-  display: flex;
-  align-items: flex-start;
+// .Container {
+//   position: relative;
+//   z-index: var(--pc-resource-item-content-stacking-order);
+//   padding: var(--p-space-3) var(--p-space-4);
+//   min-height: var(--pc-resource-item-min-height);
+//   display: flex;
+//   align-items: flex-start;
 
-  @media #{$p-breakpoints-sm-up} {
-    padding: var(--p-space-3) var(--p-space-5);
-  }
-}
+//   @media #{$p-breakpoints-sm-up} {
+//     padding: var(--p-space-3) var(--p-space-5);
+//   }
+// }
 
-.alignmentLeading {
-  align-items: flex-start;
-}
+// .alignmentLeading {
+//   align-items: flex-start;
+// }
 
-.alignmentTrailing {
-  align-items: flex-end;
-}
+// .alignmentTrailing {
+//   align-items: flex-end;
+// }
 
-.alignmentCenter {
-  align-items: center;
-}
+// .alignmentCenter {
+//   align-items: center;
+// }
 
-.alignmentFill {
-  align-items: stretch;
-}
+// .alignmentFill {
+//   align-items: stretch;
+// }
 
-.alignmentBaseline {
-  align-items: baseline;
-}
+// .alignmentBaseline {
+//   align-items: baseline;
+// }
 
-.Owned {
-  display: flex;
-}
+// .Owned {
+//   display: flex;
+// }
 
-.OwnedNoMedia {
-  padding-top: var(--p-space-1);
-}
+// .OwnedNoMedia {
+//   padding-top: var(--p-space-1);
+// }
 
 // Item handle
 .Handle {
-  width: 48px;
+  display: flex;
+  // width: 48px;
+  padding-inline-start: calc(var(--p-space-3) + var(--p-space-05));
+  padding-inline-end: var(--p-space-3);
   min-height: var(--pc-resource-item-min-height);
   justify-content: center;
   align-items: center;
-  margin: calc(-1 * var(--p-space-3)) var(--p-space-1)
-    calc(-1 * var(--p-space-3)) calc(-1 * var(--p-space-3));
-  display: flex;
+  margin-block-start: calc(-1 * var(--p-space-3));
+  margin-block-end: calc(-1 * var(--p-space-3));
+  margin-inline-start: calc(-1 * var(--p-space-3));
+  margin-inline-end: var(--p-space-1);
 
   @media #{$p-breakpoints-sm-down} {
     visibility: hidden;
@@ -165,12 +165,6 @@
   margin-right: var(--p-space-5);
   color: inherit;
   text-decoration: none;
-}
-
-// Item content
-.Content {
-  @include layout-flex-fix;
-  flex: 1 1 auto;
 }
 
 // Item actions

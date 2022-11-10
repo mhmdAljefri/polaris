@@ -62,6 +62,7 @@ $bulk-actions-button-stacking-order: (
 .ButtonGroupWrapper {
   width: 100%;
   max-width: 100%;
+  justify-content: center;
 
   // We need the first item of button group on small screen to fill the space
   @media #{$p-breakpoints-sm-down} {
@@ -73,7 +74,6 @@ $bulk-actions-button-stacking-order: (
 
   @media #{$p-breakpoints-sm-up} {
     width: auto;
-    justify-content: flex-start;
     margin-right: var(--p-space-2);
   }
 

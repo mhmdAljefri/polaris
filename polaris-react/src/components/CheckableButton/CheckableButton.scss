@@ -88,7 +88,7 @@ $button-vertical-padding: calc(
   pointer-events: none;
   height: var(--p-choice-size);
   width: var(--p-choice-size);
-  margin-left: calc(-1 * var(--p-space-2) - var(--p-control-border-width));
+  margin-left: calc(-1 * var(--p-space-3));
 }
 
 .CheckableButton-selectMode {
