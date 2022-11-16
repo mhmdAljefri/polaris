@@ -66,9 +66,8 @@ module.exports = stylelint.createPlugin(
           },
           (warning) => {
             stylelint.utils.report({
-              result,
               ruleName: coverageRuleName,
-              message: warning.text,
+              message: categoryRuleSettings.message || warning.text,
               severity:
                 categoryRuleSeverity ??
                 result.stylelint.config?.defaultSeverity ??
@@ -76,6 +75,9 @@ module.exports = stylelint.createPlugin(
               // If `warning.node` is NOT present, the warning is
               // referring to a misconfigured rule
               ...(warning.node ? {node: warning.node} : forceReport),
+              ...(categoryRuleSettings.meta
+                ? {...result, ruleMetadata: categoryRuleSettings.meta}
+                : result),
             });
           },
         );
