@@ -89,7 +89,8 @@ $vertical-motion-offset: -5px;
 }
 
 .Pane {
-  flex: 1 1 0%;
+  flex-grow: 1;
+  flex-shrink: 1;
   max-width: 100%;
 
   + .Pane {
